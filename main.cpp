@@ -93,7 +93,7 @@ void slove(coefficients c){
         write(NO_REAL_ROOTS);
         return;
     }
-   write(REAL_ROOTS, realRoots(d, c)); //Äâà äåéñòâèòåëüíûõ ðàçëè÷íûõ èëè êðàòíûõ êîðíÿ
+   write(REAL_ROOTS, realRoots(d, c)); // two distinct or multiple real roots
 }
 
 int main() {
