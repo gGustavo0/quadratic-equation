@@ -1,4 +1,3 @@
-// Created by Gustavo
 
 //------------------------INCLUDE------------------------//
 #include <iostream>
@@ -94,7 +93,7 @@ void slove(coefficients c){
         write(NO_REAL_ROOTS);
         return;
     }
-   write(REAL_ROOTS, realRoots(d, c)); //Два действительных различных или кратных корня
+   write(REAL_ROOTS, realRoots(d, c)); //Г„ГўГ  Г¤ГҐГ©Г±ГІГўГЁГІГҐГ«ГјГ­Г»Гµ Г°Г Г§Г«ГЁГ·Г­Г»Гµ ГЁГ«ГЁ ГЄГ°Г ГІГ­Г»Гµ ГЄГ®Г°Г­Гї
 }
 
 int main() {
