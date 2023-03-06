@@ -7,13 +7,13 @@
 using namespace std;
 
 //------------------------DEFINE-------------------------//
-#define ERROR 1
-#define FILE_ERROR 2
-#define NO_REAL_ROOTS 0
-#define INFINITE_NUMBER_OF_ROOTS 1
-#define REAL_ROOTS 2
-#define input R"(C:\Users\Kurai\Desktop\0\C++\axb\input.txt)"
-#define output R"(C:\Users\Kurai\Desktop\0\C++\axb\output.txt)"
+#define input "input.txt"
+#define output "output.txt"
+
+//-------------------------ENUM-------------------------//
+enum ErrorCode {ERROR = 1, FILE_ERROR = 2};
+
+enum RootsType {NO_REAL_ROOTS, INFINITE_NUMBER_OF_ROOTS, REAL_ROOTS};
 
 //------------------------STRUCT------------------------//
 struct coefficients{
@@ -35,27 +35,22 @@ void fileError(){
     exit(FILE_ERROR);
 }
 
-
 //------------------------------------------------------//
 
-double discriminant(coefficients c){
+double discriminant(const coefficients &c){
     return c.b * c.b - 4 * c.a * c.c;
 }
 
 coefficients read(){
     coefficients c = {-1, -1, -1};
     ifstream in(input);
-
-    if (in.is_open()){
-        in >> c.a >> c.b >> c.c;
-    } else fileError();
+    if (in.is_open()) in >> c.a >> c.b >> c.c;
+    else fileError();
     in.close();
-
-    if (!in) fileError();
     return c;
 }
 
-void write(int state, roots r = {-1, -1}){
+void write(const RootsType state,const roots &r){
     ofstream out(output);
     if (!out.is_open()) fileError();
     switch (state) {
@@ -76,27 +71,26 @@ void write(int state, roots r = {-1, -1}){
     if (!out) fileError();
 }
 
-roots realRoots(double discriminant, coefficients c){
+roots realRoots(const double discriminant,const coefficients &c,const RootsType r){
+    if (r != REAL_ROOTS) return {-1, -1};
     roots roots = {-1, -1};
     roots.x1 = ((-1) * c.b - sqrt(discriminant)) / (2 * c.a);
     roots.x2 = ((-1) * c.b + sqrt(discriminant)) / (2 * c.a);
     return roots;
 }
 
-void slove(coefficients c){
-    if (c.a == 0 && c.b == 0 && c.c == 0){
-        write(INFINITE_NUMBER_OF_ROOTS);
-        return;
-    }
-    double d = discriminant(c);
-    if (d < 0) {
-        write(NO_REAL_ROOTS);
-        return;
-    }
-   write(REAL_ROOTS, realRoots(d, c)); // two distinct or multiple real roots
+RootsType slove(const coefficients &c){
+    if (c.a == 0 && c.b == 0 && c.c == 0) return INFINITE_NUMBER_OF_ROOTS;
+    if (discriminant(c) < 0) return NO_REAL_ROOTS;
+    return REAL_ROOTS;
 }
 
 int main() {
-    slove(read());
+    const coefficients c = read();
+    const coefficients &rc = c;
+    const RootsType type = slove(rc);
+    const roots r = realRoots(discriminant(rc), rc, type);
+    const roots &rr = r;
+    write(type, rr);
     return 0;
 }
