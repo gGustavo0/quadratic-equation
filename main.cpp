@@ -68,7 +68,6 @@ void write(const RootsType state,const roots &r){
             break;
     }
     out.close();
-    if (!out) fileError();
 }
 
 roots realRoots(const double discriminant,const coefficients &c,const RootsType r){
