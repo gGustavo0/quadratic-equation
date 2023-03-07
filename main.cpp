@@ -38,7 +38,7 @@ void fileError(){
 //------------------------------------------------------//
 
 double discriminant(coefficients const &c){
-    return c.b * c.b - 4 * c.a * c.c;
+    return c.b * c.b - 4.0 * c.a * c.c;
 }
 
 coefficients read(){
@@ -50,7 +50,7 @@ coefficients read(){
     return c;
 }
 
-void write(RootsType const state,roots const &r){
+void write(RootsType const state, roots const &r){
     ofstream out(output);
     if (!out.is_open()) fileError();
     switch (state) {
@@ -70,7 +70,7 @@ void write(RootsType const state,roots const &r){
     out.close();
 }
 
-roots realRoots(const double discriminant ,coefficients const &c,RootsType const r){
+roots realRoots(const double discriminant, coefficients const &c, RootsType const r){
     if (r != REAL_ROOTS) return {-1, -1};
     roots roots = {-1, -1};
     roots.x1 = ((-1) * c.b - sqrt(discriminant)) / (2 * c.a);
