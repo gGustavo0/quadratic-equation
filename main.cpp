@@ -37,7 +37,7 @@ void fileError(){
 
 //------------------------------------------------------//
 
-double discriminant(const coefficients &c){
+double discriminant(coefficients const &c){
     return c.b * c.b - 4 * c.a * c.c;
 }
 
@@ -50,7 +50,7 @@ coefficients read(){
     return c;
 }
 
-void write(const RootsType state,const roots &r){
+void write(RootsType const state,roots const &r){
     ofstream out(output);
     if (!out.is_open()) fileError();
     switch (state) {
@@ -70,7 +70,7 @@ void write(const RootsType state,const roots &r){
     out.close();
 }
 
-roots realRoots(const double discriminant,const coefficients &c,const RootsType r){
+roots realRoots(const double discriminant ,coefficients const &c,RootsType const r){
     if (r != REAL_ROOTS) return {-1, -1};
     roots roots = {-1, -1};
     roots.x1 = ((-1) * c.b - sqrt(discriminant)) / (2 * c.a);
@@ -78,7 +78,7 @@ roots realRoots(const double discriminant,const coefficients &c,const RootsType 
     return roots;
 }
 
-RootsType slove(const coefficients &c){
+RootsType slove(coefficients const &c){
     if (c.a == 0 && c.b == 0 && c.c == 0) return INFINITE_NUMBER_OF_ROOTS;
     if (discriminant(c) < 0) return NO_REAL_ROOTS;
     return REAL_ROOTS;
